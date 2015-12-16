@@ -7,6 +7,9 @@ import com.kalgarn.game.FlappyGDX;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = FlappyGDX.WIDTH;
+		config.height = FlappyGDX.HEIGHT;
+		config.title = FlappyGDX.TITLE;
 		new LwjglApplication(new FlappyGDX(), config);
 	}
 }
