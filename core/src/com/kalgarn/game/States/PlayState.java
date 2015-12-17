@@ -54,6 +54,10 @@ public class PlayState extends State {
             if(cam.position.x - (cam.viewportWidth / 2) > tube.getPositionTopTube().x + tube.getTopTube().getWidth()){
                 tube.reposition(tube.getPositionTopTube().x  + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             }
+                // reinitialise la game si collision
+            if(tube.collides(bird.getPlayer())){
+                gsm.set(new MenuState(gsm));
+            }
         }
         cam.update();
     }
