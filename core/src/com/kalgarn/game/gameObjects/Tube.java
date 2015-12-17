@@ -10,8 +10,9 @@ import java.util.Random;
  */
 public class Tube {
     private static final int FLUCTUATION = 120; //0>120
-    private static final int TUBE_GAP = 100; // espace entre les 2 tubes
+    private static final int TUBE_GAP = 100; // espace entre les 2 tubes en y
     private static final int LOWEST_OPENING = 100; // taille min tube du bas
+    public static final int TUBE_WIDTH = 52;
 
     private Texture topTube;
     private Texture bottomTube;
@@ -26,6 +27,12 @@ public class Tube {
 
         positionTopTube = new Vector2(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         positionBotTube = new Vector2(x, positionTopTube.y - TUBE_GAP - bottomTube.getHeight());
+
+    }
+
+    public void reposition(float x) {
+        positionTopTube.set(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
+        positionBotTube.set(x, positionTopTube.y - TUBE_GAP - bottomTube.getHeight());
 
     }
 
