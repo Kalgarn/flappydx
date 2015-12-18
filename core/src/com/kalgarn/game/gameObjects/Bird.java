@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector3;
  * Created by Jerome on 17/12/2015.
  */
 public class Bird {
-    private static final int GRAVITY = -5; // vitesse de chute
+    private static final int GRAVITY = -10; // vitesse de chute
     private static final int MOVEMENT = 100; // vitesse de deplacement
 
     private Vector3 position;
@@ -47,6 +47,11 @@ public class Bird {
     public void jump(){
         velocity.y = 250;
            }
+
+    public void dispose(){
+        bird.dispose();
+
+    }
 
     public Rectangle getPlayer(){
         return player;

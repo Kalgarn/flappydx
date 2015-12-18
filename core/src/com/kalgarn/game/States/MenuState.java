@@ -3,6 +3,7 @@ package com.kalgarn.game.States;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.kalgarn.game.FlappyGDX;
 
 /**
@@ -11,18 +12,21 @@ import com.kalgarn.game.FlappyGDX;
 public class MenuState extends State {
     private Texture background;
     private Texture playBtn;
+
+
     public MenuState(GameStateManager gsm) {
         super(gsm);
         cam.setToOrtho(false, FlappyGDX.WIDTH / 2, FlappyGDX.HEIGHT / 2);
         background = new Texture("bg.png");
         playBtn = new Texture("playbtn.png");
+
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
             gsm.set(new PlayState(gsm));
-            dispose();
+           // dispose(); // prune memory leak
         }
     }
 

@@ -52,6 +52,11 @@ public class Tube {
         return player.overlaps(boundstopTube) || player.overlaps(boundsbotTube);
     }
 
+    public void dispose(){
+        topTube.dispose();
+        bottomTube.dispose();
+    }
+
     public Vector2 getPositionBotTube() {
         return positionBotTube;
     }
