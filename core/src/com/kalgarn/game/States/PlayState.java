@@ -43,7 +43,7 @@ public class PlayState extends State {
 
         ground = new Texture("ground.png");
         groundPosition1 = new Vector2(cam.position.x - cam.viewportWidth /2 ,GROUND_Y_OFFSET);
-        groundPosition2 = new Vector2((cam.viewportWidth/2) + ground.getWidth(),GROUND_Y_OFFSET);
+        groundPosition2 = new Vector2((cam.position.x - cam.viewportWidth/2) + ground.getWidth(),GROUND_Y_OFFSET);
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.kalgarn.game.gameObjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
@@ -18,14 +21,25 @@ public class Bird {
 
     private Rectangle player;
 
+    private Animation birdAnimation;
+    //private Texture texture;
+
+    private Sound wingsflap;
+
     public Bird(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        bird = new Texture("bird.png");
-        player = new Rectangle(x,y,bird.getWidth(),bird.getHeight());
+
+       // bird = new Texture("bird.png");
+        bird = new Texture("birdanimation.png");
+        birdAnimation = new Animation(new TextureRegion(bird), 3, 0.5f);
+        //player = new Rectangle(x,y,bird.getWidth(),bird.getHeight());  // sans animation
+        player = new Rectangle(x,y,bird.getWidth() /3 ,bird.getHeight());
+        wingsflap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
     }
 
     public void update(float dt){
+        birdAnimation.update(dt);
         velocity.add(0, GRAVITY, 0);
         velocity.scl(dt);
 
@@ -46,11 +60,13 @@ public class Bird {
         // vitesse de saut
     public void jump(){
         velocity.y = 250;
+        wingsflap.play(0.1f);
+
            }
 
     public void dispose(){
         bird.dispose();
-
+        wingsflap.dispose();
     }
 
     public Rectangle getPlayer(){
@@ -67,8 +83,10 @@ public class Bird {
 
     //get Texture bird
 
-    public Texture getBird() {
-        return bird;
+    //public Texture getBird() { return bird;}  } // sans animation
+
+    public TextureRegion getBird() {
+        return birdAnimation.getFrame();
     }
 
     public void setBird(Texture bird) {
