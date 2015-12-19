@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.kalgarn.game.FlappyGDX;
-import com.kalgarn.game.gameObjects.Bird;
-import com.kalgarn.game.gameObjects.Tube;
+import com.kalgarn.game.objects.Bird;
+import com.kalgarn.game.objects.Tube;
 
 /**
  * Created by Jerome on 16/12/2015.
@@ -68,7 +68,8 @@ public class PlayState extends State {
             }
                 // reinitialise la game si collision
             if(tube.collides(bird.getPlayer())){
-                gsm.set(new MenuState(gsm));
+                //gsm.set(new MenuState(gsm));
+                gsm.set(new GameOver(gsm));
             }
                 // -- si touche le sol
             if(bird.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET)

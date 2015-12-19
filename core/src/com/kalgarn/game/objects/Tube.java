@@ -1,4 +1,4 @@
-package com.kalgarn.game.gameObjects;
+package com.kalgarn.game.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,9 +11,9 @@ import java.util.Random;
  */
 public class Tube {
     private static final int FLUCTUATION = 130; //0>120
-    private static final int TUBE_GAP = 110; // espace entre les 2 tubes en y
+    private static final int TUBE_GAP = 115; // espace entre les 2 tubes en y
     private static final int LOWEST_OPENING = 100; // taille min tube du bas
-    public static final int TUBE_WIDTH = 52;
+    public static final int TUBE_WIDTH = 50;
 
     private Texture topTube;
     private Texture bottomTube;

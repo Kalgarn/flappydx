@@ -1,4 +1,4 @@
-package com.kalgarn.game.gameObjects;
+package com.kalgarn.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -32,7 +32,7 @@ public class Bird {
 
        // bird = new Texture("bird.png");
         bird = new Texture("birdanimation.png");
-        birdAnimation = new Animation(new TextureRegion(bird), 3, 0.5f);
+        birdAnimation = new Animation(new TextureRegion(bird), 3, 0.6f);
         //player = new Rectangle(x,y,bird.getWidth(),bird.getHeight());  // sans animation
         player = new Rectangle(x,y,bird.getWidth() /3 ,bird.getHeight());
         wingsflap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
@@ -50,7 +50,7 @@ public class Bird {
         if(position.y < 0) {
             position.y = 0;
         }
-        // inutile?
+        // ?
         if(position.y > 0) {
             velocity.add(0, GRAVITY, 0);
         }
