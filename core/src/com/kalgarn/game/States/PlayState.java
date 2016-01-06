@@ -69,6 +69,8 @@ public class PlayState extends State {
                 // reinitialise la game si collision
             if(tube.collides(bird.getPlayer())){
                 //gsm.set(new MenuState(gsm));
+
+                bird.die();
                 gsm.set(new GameOver(gsm));
             }
                 // -- si touche le sol

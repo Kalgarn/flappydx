@@ -62,7 +62,11 @@ public class Bird {
         velocity.y = 250;
         wingsflap.play(0.1f);
 
-           }
+    }
+        // annimation de mort
+    public void die(){
+        wingsflap.play();
+    }
 
     public void dispose(){
         bird.dispose();
