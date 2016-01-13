@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kalgarn.game.States.GameStateManager;
 import com.kalgarn.game.States.MenuState;
@@ -20,7 +21,7 @@ public class FlappyGDX extends ApplicationAdapter {
 
 	private Music music;
 
-	
+
 	@Override
 	public void create () {
 		this.batch = new SpriteBatch();
@@ -32,6 +33,7 @@ public class FlappyGDX extends ApplicationAdapter {
 		music.setLooping(true);
 		music.setVolume(0.1f);
 		music.play();
+
 
 	}
 
