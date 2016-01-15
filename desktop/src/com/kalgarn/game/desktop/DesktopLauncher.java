@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		config.width = FlappyGDX.WIDTH;
 		config.height = FlappyGDX.HEIGHT;
 		config.title = FlappyGDX.TITLE;
+		config.resizable = false;
 		new LwjglApplication(new FlappyGDX(), config);
 	}
 }

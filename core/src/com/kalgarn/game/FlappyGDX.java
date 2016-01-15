@@ -29,7 +29,7 @@ public class FlappyGDX extends ApplicationAdapter {
 		//camera.setToOrtho(false, WIDTH, HEIGHT);
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		this.gsm.push(new MenuState(gsm));
-		music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("audio/music.mp3"));
 		music.setLooping(true);
 		music.setVolume(0.1f);
 		music.play();

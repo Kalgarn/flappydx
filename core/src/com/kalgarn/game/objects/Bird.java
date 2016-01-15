@@ -35,7 +35,7 @@ public class Bird {
         birdAnimation = new Animation(new TextureRegion(bird), 3, 0.6f);
         //player = new Rectangle(x,y,bird.getWidth(),bird.getHeight());  // sans animation
         player = new Rectangle(x,y,bird.getWidth() /3 ,bird.getHeight());
-        wingsflap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
+        wingsflap = Gdx.audio.newSound(Gdx.files.internal("audio/fx_wing.ogg"));
     }
 
     public void update(float dt){
