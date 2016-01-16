@@ -1,28 +1,32 @@
-package com.kalgarn.game.States;
+package com.kalgarn.game.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.kalgarn.game.FlappyGDX;
+
 import com.kalgarn.game.objects.Bird;
 import com.kalgarn.game.objects.Tube;
 
 /**
- * Created by Jerome on 16/12/2015.
+ * Created by Jerome on 16/01/2016.
  */
-public class PlayState extends State {
+public class PlayScreen implements Screen {
+
     private static final int TUBE_SPACING = 125; // espace entre 2 tubes en x
     private static final int TUBE_COUNT = 4; // nb de tube afficher
     private static final int GROUND_Y_OFFSET = -55; // decalage du sol, trop haut de base
 
     private Bird bird;
     private Texture bg;
-    //private Texture bird;
-   // private Tube tube;
+
+
     private Array<Tube> tubes;
 
     private Texture ground;
@@ -32,13 +36,16 @@ public class PlayState extends State {
     private int score;
     private BitmapFont font;
 
-    public PlayState(GameStateManager gsm) {
-        super(gsm);
-       // bird = new Texture("bird.png");
+    private FlappyGDX game;
+    private OrthographicCamera cam = new OrthographicCamera();
+
+    public PlayScreen(FlappyGDX menuScreen) {
+     this.game = menuScreen;
+        // bird = new Texture("bird.png");
         bird = new Bird(50, 300);
         cam.setToOrtho(false, FlappyGDX.WIDTH / 2, FlappyGDX.HEIGHT / 2);
         bg = new Texture("bg.png");
-     //   tube = new Tube(120); // 1er tube a 120px
+        //   tube = new Tube(120); // 1er tube a 120px
         tubes = new Array<Tube>();
 
         for(int i = 1; i <= TUBE_COUNT; i++){
@@ -50,11 +57,9 @@ public class PlayState extends State {
         groundPosition2 = new Vector2((cam.position.x - cam.viewportWidth/2) + ground.getWidth(),GROUND_Y_OFFSET);
 
         score = 0;
-
     }
 
-    @Override
-    protected void handleInput() {
+    public void handleInput(){
         if(Gdx.input.justTouched())
             bird.jump();
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
@@ -62,7 +67,15 @@ public class PlayState extends State {
         }
     }
 
-    @Override
+    private void updateGround(){
+        if(cam.position.x - (cam.viewportWidth / 2) > groundPosition1.x + ground.getWidth()) {
+            groundPosition1.add(ground.getWidth() * 2, 0);
+        }
+        if(cam.position.x - (cam.viewportWidth / 2) > groundPosition2.x + ground.getWidth()) {
+            groundPosition2.add(ground.getWidth() * 2, 0);
+        }
+    }
+
     public void update(float dt) {
         handleInput();
         updateGround(); // genere sol
@@ -74,47 +87,65 @@ public class PlayState extends State {
                 tube.reposition(tube.getPositionTopTube().x  + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
                 score++;
             }
-                // reinitialise la game si collision
+            // reinitialise la game si collision
             if(tube.collides(bird.getPlayer())){
                 //gsm.set(new MenuState(gsm));
 
                 bird.die();
-                gsm.set(new GameOver(gsm));
+                //gsm.set(new GameOver(gsm));
+                game.setScreen(new GameOverScreen(game));
             }
-                // -- si touche le sol
+            // -- si touche le sol
             if(bird.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET) {
-                gsm.set(new MenuState(gsm));
+                //  gsm.set(new MenuState(gsm));
+                game.setScreen(new MenuScreen(game));
             }
         }
         cam.update();
 
     }
-
     @Override
-    public void render(SpriteBatch sb) {
-        font = new BitmapFont();
-        sb.setProjectionMatrix(cam.combined);
-        sb.begin();
-        //sb.draw(bird, 50, 50);
-        sb.draw(bg, cam.position.x - (cam.viewportWidth / 2), 0);
-        sb.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
-        for (Tube tube : tubes) {
-            sb.draw(tube.getTopTube(), tube.getPositionTopTube().x, tube.getPositionTopTube().y);
-            sb.draw(tube.getBottomTube(), tube.getPositionBotTube().x, tube.getPositionBotTube().y);
-        }
-        sb.draw(ground, groundPosition1.x,groundPosition1.y);
-        sb.draw(ground, groundPosition2.x,groundPosition2.y);
-        font.draw(sb, "" + score, cam.position.x ,100);
-        sb.end();
+    public void show() {
+
     }
 
-    private void updateGround(){
-        if(cam.position.x - (cam.viewportWidth / 2) > groundPosition1.x + ground.getWidth()) {
-            groundPosition1.add(ground.getWidth() * 2, 0);
+    @Override
+    public void render(float delta) {
+        update(delta);
+        font = new BitmapFont();
+        game.batch.setProjectionMatrix(cam.combined);
+        game.batch.begin();
+        //sb.draw(bird, 50, 50);
+        game.batch.draw(bg, cam.position.x - (cam.viewportWidth / 2), 0);
+        game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
+        for (Tube tube : tubes) {
+            game.batch.draw(tube.getTopTube(), tube.getPositionTopTube().x, tube.getPositionTopTube().y);
+            game.batch.draw(tube.getBottomTube(), tube.getPositionBotTube().x, tube.getPositionBotTube().y);
         }
-        if(cam.position.x - (cam.viewportWidth / 2) > groundPosition2.x + ground.getWidth()) {
-            groundPosition2.add(ground.getWidth() * 2, 0);
-        }
+        game.batch.draw(ground, groundPosition1.x,groundPosition1.y);
+        game.batch.draw(ground, groundPosition2.x,groundPosition2.y);
+        font.draw(game.batch, "" + score, cam.position.x ,100);
+        game.batch.end();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     @Override
