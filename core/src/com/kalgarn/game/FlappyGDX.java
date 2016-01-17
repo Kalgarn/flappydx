@@ -16,6 +16,7 @@ public class FlappyGDX extends Game {
 
     public SpriteBatch batch;
 
+
     private Music music;
 
     @Override
@@ -39,5 +40,15 @@ public class FlappyGDX extends Game {
         super.dispose();
         music.dispose();
         batch.dispose();
+    }
+
+    @Override
+    public void pause() {
+        super.pause();
+    }
+
+    @Override
+    public void resume() {
+        super.resume();
     }
 }

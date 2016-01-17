@@ -53,6 +53,8 @@ public class PlayScreen implements Screen {
         groundPosition2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
 
         score = 0;
+
+        font = new BitmapFont(Gdx.files.internal("font/font.fnt"),Gdx.files.internal("font/font.png"), false);
     }
 
     public void handleInput() {
@@ -90,6 +92,7 @@ public class PlayScreen implements Screen {
             }
             // -- si touche le sol
             if (bird.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET) {
+                bird.falling();
                 game.setScreen(new MenuScreen(game));
             }
         }
@@ -105,7 +108,7 @@ public class PlayScreen implements Screen {
     @Override
     public void render(float delta) {
         update(delta);
-        font = new BitmapFont();
+
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
         game.batch.draw(bg, cam.position.x - (cam.viewportWidth / 2), 0);

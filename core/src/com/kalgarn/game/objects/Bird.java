@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
  * Created by Jerome on 17/12/2015.
  */
 public class Bird {
-    private static final int GRAVITY = -10; // vitesse de chute
+    private static final int GRAVITY = -12; // vitesse de chute
     private static final int MOVEMENT = 100; // vitesse de deplacement
 
     private Vector3 position;
@@ -24,6 +24,8 @@ public class Bird {
     private Animation birdAnimation;;
 
     private Sound wingsflap;
+    private Sound dienoise;
+    private Sound hitnoise;
 
     public Bird(int x, int y){
         position = new Vector3(x, y, 0);
@@ -32,6 +34,8 @@ public class Bird {
         birdAnimation = new Animation(new TextureRegion(bird), 3, 0.6f);
         player = new Rectangle(x,y,bird.getWidth() /3 ,bird.getHeight());
         wingsflap = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_wing.ogg"));
+        dienoise = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_die.mp3"));
+        hitnoise = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_hit.mp3"));
     }
 
     public void update(float dt){
@@ -57,7 +61,11 @@ public class Bird {
     }
     // annimation de mort
     public void die(){
-        wingsflap.play();
+        hitnoise.play(0.5f);
+    }
+
+    public void falling(){
+        dienoise.play(0.5f);
     }
 
     public void dispose(){
