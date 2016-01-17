@@ -10,43 +10,34 @@ import com.kalgarn.game.screens.MenuScreen;
 
 public class FlappyGDX extends Game {
 
-	public static final int WIDTH = 480;
-	public static final int HEIGHT = 800;
-	public static final String TITLE = "FlappyBird";
+    public static final int WIDTH = 480;
+    public static final int HEIGHT = 800;
+    public static final String TITLE = "FlappyBird";
+
+    public SpriteBatch batch;
+
+    private Music music;
+
+    @Override
+    public void create() {
+        this.batch = new SpriteBatch();
+        this.setScreen(new MenuScreen(this));
+        music = Gdx.audio.newMusic(Gdx.files.internal("audio/music.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.1f);
+        music.play();
+    }
+
+    @Override
+    public void render() {
+        super.render();
+    }
 
 
-	public SpriteBatch batch;
-
-
-	private Music music;
-
-
-	@Override
-	public void create () {
-		this.batch = new SpriteBatch();
-
-      this.setScreen(new MenuScreen(this));
-
-		music = Gdx.audio.newMusic(Gdx.files.internal("audio/music.mp3"));
-		music.setLooping(true);
-		music.setVolume(0.1f);
-		music.play();
-
-
-	}
-
-	@Override
-	public void render() {
-
-    super.render();
-
-	}
-
-
-	@Override
-	public void dispose() {
-		super.dispose();
-		music.dispose();
+    @Override
+    public void dispose() {
+        super.dispose();
+        music.dispose();
         batch.dispose();
-	}
+    }
 }

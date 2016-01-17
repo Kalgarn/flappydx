@@ -15,15 +15,16 @@ public class GameOverScreen implements Screen {
     private Texture background;
     private FlappyGDX game;
     private OrthographicCamera cam = new OrthographicCamera();
+
     public GameOverScreen(FlappyGDX game) {
-this.game = game;
-        cam.setToOrtho(false, FlappyGDX.WIDTH/2,FlappyGDX.HEIGHT/2);
+        this.game = game;
+        cam.setToOrtho(false, FlappyGDX.WIDTH / 2, FlappyGDX.HEIGHT / 2);
         this.gameOver = new Texture("gameover.png");
         this.background = new Texture("bg.png");
     }
-    public void handleInput() {
-        if(Gdx.input.justTouched()) {
 
+    public void handleInput() {
+        if (Gdx.input.justTouched()) {
             game.setScreen(new MenuScreen(game));
         }
     }
@@ -38,7 +39,7 @@ this.game = game;
         handleInput();
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
-        game.batch.draw(background,0,0);
+        game.batch.draw(background, 0, 0);
         game.batch.draw(gameOver, cam.position.x - gameOver.getWidth() / 2, cam.position.y);
         game.batch.end();
     }

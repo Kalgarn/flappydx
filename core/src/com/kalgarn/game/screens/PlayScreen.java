@@ -1,6 +1,5 @@
 package com.kalgarn.game.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.kalgarn.game.FlappyGDX;
-
 import com.kalgarn.game.objects.Bird;
 import com.kalgarn.game.objects.Tube;
 
@@ -26,7 +24,6 @@ public class PlayScreen implements Screen {
     private Bird bird;
     private Texture bg;
 
-
     private Array<Tube> tubes;
 
     private Texture ground;
@@ -37,41 +34,40 @@ public class PlayScreen implements Screen {
     private BitmapFont font;
 
     private FlappyGDX game;
-    private OrthographicCamera cam = new OrthographicCamera();
+    private OrthographicCamera cam;
 
     public PlayScreen(FlappyGDX menuScreen) {
-     this.game = menuScreen;
-        // bird = new Texture("bird.png");
+        this.game = menuScreen;
+        cam = new OrthographicCamera();
         bird = new Bird(50, 300);
         cam.setToOrtho(false, FlappyGDX.WIDTH / 2, FlappyGDX.HEIGHT / 2);
         bg = new Texture("bg.png");
-        //   tube = new Tube(120); // 1er tube a 120px
         tubes = new Array<Tube>();
 
-        for(int i = 1; i <= TUBE_COUNT; i++){
+        for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
 
         ground = new Texture("ground.png");
-        groundPosition1 = new Vector2(cam.position.x - cam.viewportWidth /2 ,GROUND_Y_OFFSET);
-        groundPosition2 = new Vector2((cam.position.x - cam.viewportWidth/2) + ground.getWidth(),GROUND_Y_OFFSET);
+        groundPosition1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUND_Y_OFFSET);
+        groundPosition2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
 
         score = 0;
     }
 
-    public void handleInput(){
-        if(Gdx.input.justTouched())
+    public void handleInput() {
+        if (Gdx.input.justTouched())
             bird.jump();
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             bird.jump();
         }
     }
 
-    private void updateGround(){
-        if(cam.position.x - (cam.viewportWidth / 2) > groundPosition1.x + ground.getWidth()) {
+    private void updateGround() {
+        if (cam.position.x - (cam.viewportWidth / 2) > groundPosition1.x + ground.getWidth()) {
             groundPosition1.add(ground.getWidth() * 2, 0);
         }
-        if(cam.position.x - (cam.viewportWidth / 2) > groundPosition2.x + ground.getWidth()) {
+        if (cam.position.x - (cam.viewportWidth / 2) > groundPosition2.x + ground.getWidth()) {
             groundPosition2.add(ground.getWidth() * 2, 0);
         }
     }
@@ -82,28 +78,25 @@ public class PlayScreen implements Screen {
         bird.update(dt);
         cam.position.x = bird.getPosition().x + 80; //centre la vue
         //  tubes
-        for (Tube tube : tubes){
-            if(cam.position.x - (cam.viewportWidth / 2) > tube.getPositionTopTube().x + tube.getTopTube().getWidth()){
-                tube.reposition(tube.getPositionTopTube().x  + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
+        for (Tube tube : tubes) {
+            if (cam.position.x - (cam.viewportWidth / 2) > tube.getPositionTopTube().x + tube.getTopTube().getWidth()) {
+                tube.reposition(tube.getPositionTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
                 score++;
             }
             // reinitialise la game si collision
-            if(tube.collides(bird.getPlayer())){
-                //gsm.set(new MenuState(gsm));
-
+            if (tube.collides(bird.getPlayer())) {
                 bird.die();
-                //gsm.set(new GameOver(gsm));
                 game.setScreen(new GameOverScreen(game));
             }
             // -- si touche le sol
-            if(bird.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET) {
-                //  gsm.set(new MenuState(gsm));
+            if (bird.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET) {
                 game.setScreen(new MenuScreen(game));
             }
         }
         cam.update();
 
     }
+
     @Override
     public void show() {
 
@@ -115,16 +108,15 @@ public class PlayScreen implements Screen {
         font = new BitmapFont();
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
-        //sb.draw(bird, 50, 50);
         game.batch.draw(bg, cam.position.x - (cam.viewportWidth / 2), 0);
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
         for (Tube tube : tubes) {
             game.batch.draw(tube.getTopTube(), tube.getPositionTopTube().x, tube.getPositionTopTube().y);
             game.batch.draw(tube.getBottomTube(), tube.getPositionBotTube().x, tube.getPositionBotTube().y);
         }
-        game.batch.draw(ground, groundPosition1.x,groundPosition1.y);
-        game.batch.draw(ground, groundPosition2.x,groundPosition2.y);
-        font.draw(game.batch, "" + score, cam.position.x ,100);
+        game.batch.draw(ground, groundPosition1.x, groundPosition1.y);
+        game.batch.draw(ground, groundPosition2.x, groundPosition2.y);
+        font.draw(game.batch, "" + score, cam.position.x, 100);
         game.batch.end();
     }
 
