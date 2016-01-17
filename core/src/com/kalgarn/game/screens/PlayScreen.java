@@ -3,10 +3,14 @@ package com.kalgarn.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.kalgarn.game.FlappyGDX;
 import com.kalgarn.game.objects.Bird;
@@ -36,6 +40,9 @@ public class PlayScreen implements Screen {
     private FlappyGDX game;
     private OrthographicCamera cam;
 
+    private Stage stage;
+    private Label scoreLabel;
+
     public PlayScreen(FlappyGDX menuScreen) {
         this.game = menuScreen;
         cam = new OrthographicCamera();
@@ -55,6 +62,14 @@ public class PlayScreen implements Screen {
         score = 0;
 
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"),Gdx.files.internal("font/font.png"), false);
+
+        stage = new Stage();
+        Table table = new Table();
+        table.bottom().padBottom(15);
+        table.setFillParent(true);
+        scoreLabel = new Label(String.valueOf(score),new Label.LabelStyle(font,Color.WHITE));
+        table.add(scoreLabel).expandX();
+        stage.addActor(table);
     }
 
     public void handleInput() {
@@ -84,6 +99,7 @@ public class PlayScreen implements Screen {
             if (cam.position.x - (cam.viewportWidth / 2) > tube.getPositionTopTube().x + tube.getTopTube().getWidth()) {
                 tube.reposition(tube.getPositionTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
                 score++;
+                scoreLabel.setText(String.valueOf(score));
             }
             // reinitialise la game si collision
             if (tube.collides(bird.getPlayer())) {
@@ -119,8 +135,10 @@ public class PlayScreen implements Screen {
         }
         game.batch.draw(ground, groundPosition1.x, groundPosition1.y);
         game.batch.draw(ground, groundPosition2.x, groundPosition2.y);
-        font.draw(game.batch, "" + score, cam.position.x, 100);
+        font.draw(game.batch, "" + score, cam.position.x, 35);
+        stage.draw();
         game.batch.end();
+
     }
 
     @Override

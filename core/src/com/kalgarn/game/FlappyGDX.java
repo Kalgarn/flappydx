@@ -25,7 +25,7 @@ public class FlappyGDX extends Game {
         this.setScreen(new MenuScreen(this));
         music = Gdx.audio.newMusic(Gdx.files.internal("audio/music.mp3"));
         music.setLooping(true);
-        music.setVolume(0.1f);
+        music.setVolume(0.5f);
         music.play();
     }
 
