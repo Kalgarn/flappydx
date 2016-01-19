@@ -27,6 +27,7 @@ public class FlappyGDX extends Game {
         music.setLooping(true);
         music.setVolume(0.5f);
         music.play();
+        HighScore.getInstance().load();
     }
 
     @Override

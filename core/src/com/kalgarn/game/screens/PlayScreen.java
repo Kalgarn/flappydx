@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.kalgarn.game.FlappyGDX;
+import com.kalgarn.game.HighScore;
 import com.kalgarn.game.objects.Bird;
 import com.kalgarn.game.objects.Tube;
 
@@ -100,6 +101,7 @@ public class PlayScreen implements Screen {
                 tube.reposition(tube.getPositionTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
                 score++;
                 scoreLabel.setText(String.valueOf(score));
+                HighScore.getInstance().setHighscore(score);
             }
             // reinitialise la game si collision
             if (tube.collides(bird.getPlayer())) {

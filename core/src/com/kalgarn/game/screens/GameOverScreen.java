@@ -2,9 +2,15 @@ package com.kalgarn.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.kalgarn.game.FlappyGDX;
+import com.kalgarn.game.HighScore;
 
 
 /**
@@ -16,11 +22,24 @@ public class GameOverScreen implements Screen {
     private FlappyGDX game;
     private OrthographicCamera cam = new OrthographicCamera();
 
+    private Stage stage;
+    private Label scoreLabel;
+    private BitmapFont font;
+
     public GameOverScreen(FlappyGDX game) {
         this.game = game;
         cam.setToOrtho(false, FlappyGDX.WIDTH / 2, FlappyGDX.HEIGHT / 2);
         this.gameOver = new Texture("gameover.png");
         this.background = new Texture("bg.png");
+
+        font = new BitmapFont(Gdx.files.internal("font/font.fnt"),Gdx.files.internal("font/font.png"), false);
+        stage = new Stage();
+        Table table = new Table();
+        table.bottom().padBottom(15);
+        table.setFillParent(true);
+        scoreLabel = new Label(String.valueOf(HighScore.getHighscore()),new Label.LabelStyle(font, Color.WHITE));
+        table.add(scoreLabel).expandX();
+        stage.addActor(table);
     }
 
     public void handleInput() {
@@ -41,6 +60,7 @@ public class GameOverScreen implements Screen {
         game.batch.begin();
         game.batch.draw(background, 0, 0);
         game.batch.draw(gameOver, cam.position.x - gameOver.getWidth() / 2, cam.position.y);
+        stage.draw();
         game.batch.end();
     }
 

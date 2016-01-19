@@ -37,8 +37,8 @@ public class Bird {
         birdAnimation = new Animation(new TextureRegion(bird), 3, 0.6f);
         player = new Rectangle(x,y,bird.getWidth() /3 ,bird.getHeight());
         wingsflap = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_wing.ogg"));
-        dienoise = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_die.mp3"));
-        hitnoise = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_hit.mp3"));
+        dienoise = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_die.ogg"));
+        hitnoise = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_hit.ogg"));
 
         state = State.ALIVE;
     }

@@ -2,6 +2,7 @@ package com.kalgarn.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.kalgarn.game.FlappyGDX;
@@ -13,11 +14,13 @@ public class MenuScreen implements Screen {
 
     private Texture background;
     private Texture playBtn;
+    private Texture bird;
 
     private OrthographicCamera cam;
 
     private FlappyGDX fgame;
 
+    private Sound start;
 
     public MenuScreen(FlappyGDX flappyGDX) {
         this.fgame = flappyGDX;
@@ -25,10 +28,13 @@ public class MenuScreen implements Screen {
         cam.setToOrtho(false, FlappyGDX.WIDTH / 2, FlappyGDX.HEIGHT / 2);
         background = new Texture("bg.png");
         playBtn = new Texture("playbtn.png");
+        bird = new Texture("bird.png");
+        start = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_start.ogg"));
     }
 
     public void handleInput(){
         if (Gdx.input.justTouched()){
+            start.play();
             fgame.setScreen(new PlayScreen(fgame));
         }
     }
@@ -47,6 +53,7 @@ public class MenuScreen implements Screen {
         fgame.batch.begin();
         fgame.batch.draw(background, 0, 0);
         fgame.batch.draw(playBtn, cam.position.x - playBtn.getWidth() / 2, cam.position.y);
+        fgame.batch.draw(bird, 50, 300);
         fgame.batch.end();
     }
 
