@@ -46,6 +46,7 @@ public class FlappyGDX extends Game {
     @Override
     public void pause() {
         super.pause();
+        HighScore.getInstance().save();
     }
 
     @Override

@@ -43,7 +43,9 @@ public class HighScore {
     }
 
     public static int setHighscore(int score) {
+        if (score > HighScore.highscore){
         HighScore.highscore = score;
+        }
         return highscore;
     }
 }
