@@ -27,9 +27,6 @@ public class Bird {
     private Sound dienoise;
     private Sound hitnoise;
 
-    private State state;
-    public enum State { ALIVE, DYING, FALLING};
-
     public Bird(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
@@ -39,8 +36,6 @@ public class Bird {
         wingsflap = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_wing.ogg"));
         dienoise = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_die.ogg"));
         hitnoise = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_hit.ogg"));
-
-        state = State.ALIVE;
     }
 
     public void update(float dt){
@@ -67,12 +62,7 @@ public class Bird {
         dienoise.play(0.5f);
     }
 
-    public void dispose(){
-        bird.dispose();
-        wingsflap.dispose();
-        hitnoise.dispose();
-        dienoise.dispose();
-    }
+
 
     public Rectangle getPlayer(){
         return player;
@@ -85,8 +75,6 @@ public class Bird {
     public void setPosition(Vector3 position) {
         this.position = position;
     }
-
-    //public Texture getBird() { return bird;}  } // sans animation
 
     public TextureRegion getBird() {
         return birdAnimation.getFrame();

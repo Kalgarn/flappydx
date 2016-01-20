@@ -140,6 +140,7 @@ public class PlayScreen implements Screen {
         game.batch.end();
         stage.act();
         stage.draw();
+
     }
 
     @Override
