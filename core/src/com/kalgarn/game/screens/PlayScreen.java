@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.kalgarn.game.FlappyGDX;
 import com.kalgarn.game.HighScore;
 import com.kalgarn.game.objects.Bird;
@@ -64,7 +65,7 @@ public class PlayScreen implements Screen {
 
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"),Gdx.files.internal("font/font.png"), false);
 
-        stage = new Stage();
+        stage = new Stage(new StretchViewport(FlappyGDX.WIDTH, FlappyGDX.HEIGHT));
         Table table = new Table();
         table.bottom().padBottom(15);
         table.setFillParent(true);
@@ -137,10 +138,11 @@ public class PlayScreen implements Screen {
         }
         game.batch.draw(ground, groundPosition1.x, groundPosition1.y);
         game.batch.draw(ground, groundPosition2.x, groundPosition2.y);
-        font.draw(game.batch, "" + score, cam.position.x, 35);
-        stage.draw();
+        //font.draw(game.batch, "" + score, cam.position.x, 35);
+        //stage.draw();
         game.batch.end();
-
+        stage.act();
+        stage.draw();
     }
 
     @Override

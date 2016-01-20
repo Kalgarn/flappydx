@@ -24,6 +24,7 @@ public class GameOverScreen implements Screen {
 
     private Stage stage;
     private Label scoreLabel;
+
     private BitmapFont font;
 
     public GameOverScreen(FlappyGDX game) {
@@ -35,7 +36,7 @@ public class GameOverScreen implements Screen {
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"),Gdx.files.internal("font/font.png"), false);
         stage = new Stage();
         Table table = new Table();
-        table.bottom().padBottom(15);
+        table.center();
         table.setFillParent(true);
         scoreLabel = new Label(String.valueOf(HighScore.getHighscore()),new Label.LabelStyle(font, Color.WHITE));
         table.add(scoreLabel).expandX();
