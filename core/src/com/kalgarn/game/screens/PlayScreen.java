@@ -101,7 +101,7 @@ public class PlayScreen implements Screen {
                 tube.reposition(tube.getPositionTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
                 score++;
                 scoreLabel.setText(String.valueOf(score));
-                HighScore.getInstance().setHighscore(score);
+                HighScore.setHighscore(score);
             }
             // reinitialise la game si collision
             if (tube.collides(bird.getPlayer())) {
