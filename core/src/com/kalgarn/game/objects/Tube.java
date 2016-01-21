@@ -47,7 +47,7 @@ public class Tube {
 
 
     }
-        // verifie si les rectangle se chevauche, si le joueur touche les tubes
+    // verifie si les rectangle se chevauche, si le joueur touche les tubes
     public boolean collides(Rectangle player){
         return player.overlaps(boundstopTube) || player.overlaps(boundsbotTube);
     }
