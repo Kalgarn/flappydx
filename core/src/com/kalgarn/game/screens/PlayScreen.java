@@ -102,6 +102,7 @@ public class PlayScreen implements Screen {
                 score++;
                 scoreLabel.setText(String.valueOf(score));
                 HighScore.setHighscore(score);
+                HighScore.setGameScore(score);
             }
             // reinitialise la game si collision
             if (tube.collides(bird.getPlayer())) {

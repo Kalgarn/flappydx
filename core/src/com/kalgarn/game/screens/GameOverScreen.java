@@ -24,6 +24,7 @@ public class GameOverScreen implements Screen {
 
     private Stage stage;
     private Label scoreLabel;
+    private Label highScoreLabel;
 
     private BitmapFont font;
 
@@ -38,8 +39,11 @@ public class GameOverScreen implements Screen {
         Table table = new Table();
         table.center();
         table.setFillParent(true);
-        scoreLabel = new Label(String.valueOf(HighScore.getHighscore()),new Label.LabelStyle(font, Color.WHITE));
+        scoreLabel = new Label("score " + String.valueOf(HighScore.getGamescore()),new Label.LabelStyle(font, Color.WHITE));
+        highScoreLabel = new Label("best score " + String.valueOf(HighScore.getHighscore()), new Label.LabelStyle(font, Color.BROWN));
         table.add(scoreLabel).expandX();
+        table.row();
+        table.add(highScoreLabel).expandX();
         stage.addActor(table);
     }
 

@@ -13,6 +13,7 @@ public class HighScore {
 
     private static HighScore instance = null;
     private static int highscore;
+    private static int gamescore;
 
     protected HighScore(){
 
@@ -47,5 +48,15 @@ public class HighScore {
         HighScore.highscore = score;
         }
         return highscore;
+    }
+
+    public static int setGameScore(int score){
+        HighScore.gamescore = score;
+
+        return gamescore;
+    }
+
+    public  static int getGamescore(){
+        return gamescore;
     }
 }
