@@ -31,8 +31,8 @@ public class GameOverScreen implements Screen {
     public GameOverScreen(FlappyGDX game) {
         this.game = game;
         cam.setToOrtho(false, FlappyGDX.WIDTH / 2, FlappyGDX.HEIGHT / 2);
-        this.gameOver = new Texture("gameover.png");
-        this.background = new Texture("bg.png");
+        this.gameOver = new Texture("imgs/gameover.png");
+        this.background = new Texture("imgs/bg.png");
 
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"),Gdx.files.internal("font/font.png"), false);
         stage = new Stage();

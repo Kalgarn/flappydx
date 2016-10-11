@@ -49,14 +49,14 @@ public class PlayScreen implements Screen {
         cam = new OrthographicCamera();
         bird = new Bird(50, 300);
         cam.setToOrtho(false, FlappyGDX.WIDTH / 2, FlappyGDX.HEIGHT / 2);
-        bg = new Texture("bg.png");
+        bg = new Texture("imgs/bg.png");
         tubes = new Array<Tube>();
 
         for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
 
-        ground = new Texture("ground.png");
+        ground = new Texture("imgs/ground.png");
         groundPosition1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUND_Y_OFFSET);
         groundPosition2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
 

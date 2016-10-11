@@ -26,9 +26,9 @@ public class MenuScreen implements Screen {
         this.fgame = flappyGDX;
         cam = new OrthographicCamera();
         cam.setToOrtho(false, FlappyGDX.WIDTH / 2, FlappyGDX.HEIGHT / 2);
-        background = new Texture("bg.png");
-        playBtn = new Texture("playbtn.png");
-        bird = new Texture("bird.png");
+        background = new Texture("imgs/bg.png");
+        playBtn = new Texture("imgs/playbtn.png");
+        bird = new Texture("imgs/bird.png");
         start = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_start.ogg"));
     }
 

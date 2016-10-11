@@ -30,7 +30,7 @@ public class Bird {
     public Bird(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        bird = new Texture("birdanimation.png");
+        bird = new Texture("imgs/birdanimation.png");
         birdAnimation = new Animation(new TextureRegion(bird), 3, 0.6f);
         player = new Rectangle(x,y,bird.getWidth() /3 ,bird.getHeight());
         wingsflap = Gdx.audio.newSound(Gdx.files.internal("audio/sfx_wing.ogg"));
