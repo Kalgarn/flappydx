@@ -112,7 +112,7 @@ public class PlayScreen implements Screen {
             // -- si touche le sol
             if (bird.getPosition().y <= ground.getHeight() + GROUND_Y_OFFSET) {
                 bird.falling();
-                game.setScreen(new MenuScreen(game));
+                game.setScreen(new GameOverScreen(game));
             }
         }
         cam.update();
