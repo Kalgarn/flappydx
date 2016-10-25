@@ -5,7 +5,7 @@ import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import com.kalgarn.game.FlappyGDX;
 
-public class HtmlLauncher extends GwtApplication {
+class HtmlLauncher extends GwtApplication {
 
         @Override
         public GwtApplicationConfiguration getConfig () {
@@ -15,5 +15,10 @@ public class HtmlLauncher extends GwtApplication {
         @Override
         public ApplicationListener getApplicationListener () {
                 return new FlappyGDX();
+        }
+
+        @Override
+        public ApplicationListener createApplicationListener() {
+                return null;
         }
 }
